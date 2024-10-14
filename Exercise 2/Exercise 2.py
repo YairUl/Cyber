@@ -16,8 +16,7 @@ def morse_file(fileName):
                 except:
                     return "Error in Morse Code"
             endString = endString + " "
-        endString = endString.strip()
-        return endString
+        return endString.strip()
 
 
 #print(morse_file("Data/morse1.txt"))
