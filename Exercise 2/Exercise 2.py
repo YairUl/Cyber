@@ -16,10 +16,11 @@ def morse_file(fileName):
                 except:
                     return "Error in Morse Code"
             endString = endString + " "
+        endString = endString.strip()
         return endString
 
 
-#print(morse_file("Data/morse1.txt"))
+print(morse_file("Data/morse1.txt"))
 
 def count_symbols(fileName):
     word_string = morse_file(fileName).replace(" ", "")
