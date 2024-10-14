@@ -20,7 +20,7 @@ def morse_file(fileName):
         return endString
 
 
-print(morse_file("Data/morse1.txt"))
+#print(morse_file("Data/morse1.txt"))
 
 def count_symbols(fileName):
     word_string = morse_file(fileName).replace(" ", "")
