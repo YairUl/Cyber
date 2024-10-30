@@ -1,7 +1,7 @@
-def factorial(num : int):
+def factorial_calculate(num : int):
     if num == 0:
         return 1
-    return multi(factorial(num-1), num)
+    return multi(factorial_calculate(num-1), num)
 
 def multi(num1, num2):
     if num1 == 0:
@@ -16,4 +16,4 @@ def add(num1, num2):
     return x
 
 
-#print(factorial(5))
+#print(factorial_calculate(5))
