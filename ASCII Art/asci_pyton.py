@@ -14,6 +14,7 @@ def rotate(image: str, degrees: int):
 
         #turn the string to a matrix
         cur_matrix = [list(line) for line in image.splitlines()]
+
         cols = len(cur_matrix[0])
         rows = len(cur_matrix)
 
@@ -30,7 +31,7 @@ def rotate(image: str, degrees: int):
 
         return end_str
     elif degrees == 180:
-        return image[::-1].strip()                  # in case of
+        return image[::-1].strip()  # in case of /n in the beginning
     elif degrees == 270:
         end180str = rotate(image, 180)
         return rotate(end180str, 90)
