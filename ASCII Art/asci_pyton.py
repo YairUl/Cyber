@@ -11,22 +11,25 @@ def rotate(image: str, degrees: int):
     if degrees == 0:
         return image
     if degrees == 90:
-        #cur_matrix = [list(line) for line in image.splitlines()]
-        #end_matrix = []
-        #for line in cur_matrix:
-        #    end_matrix.append(line[::-1])
-        #end_str = "\n".join("".join(line) for line in end_matrix)
-        #return end_str
-        pass
+        cur_matrix = [list(line) for line in image.splitlines()]
+        cols = len(cur_matrix[0])
+        rows = len(cur_matrix)
+        end_matrix = [[None for _ in range(rows)] for _ in range(cols)]
+        for col in range(cols):
+            for row in range(rows):
+                end_matrix[col][row] = cur_matrix[row][cols-1-col]
+        end_str = "\n".join("".join(line) for line in end_matrix)
+        return end_str
     elif degrees == 180:
-        return image[::-1]
+        return image[::-1].strip()
     elif degrees == 270:
-        pass
+        end180str = rotate(image, 180)
+        return rotate(end180str, 90)
     elif degrees == 360:
         split360str = image.split("\n")
         end360str = ""
-        for line in split360str:
-            end360str += line[::-1]
+        for col in split360str:
+            end360str += col[::-1]
             end360str += "\n"
         return end360str.strip("\n")
 
@@ -103,7 +106,12 @@ def deserialize(string, rotation, conv_choice, conversion_table, to_print=False)
 
 
 
-#print(rotate("$$$$$***   ....\n&&&&&(,,/ ##))\n**   ****./,///", 180))
-#print(convert("$$$$$***   ....\n&&&&&(,,/ ##))\n**   ****./,///", ["(^$", "$;!", "*|#"], 1))
-#print(serialize("$$$$$***   ....\n&&&&&(,,/ ##))\n**   ****./,///", 0, 0, ["(^$", "$;!", "*|#"], True))
-print(deserialize("5$3*3 4.\n5&1(2,1/1 2#2)\n2*3 4*1.1/1,3/", 0, 0, ["(^$", "$;!", "*|#"], True))
+#print(rotate("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", 90))
+#print(convert("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", ["(^$", "$;!", "*|#"], 1))
+#print(serialize("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", 0, 0, ["(^$", "$;!", "*|#"], True))
+#print(deserialize("5$3*3 4.\n5&1(2,1/2 2#2)\n2*3 4*1.1/1,3/", 270, 0, ["(^$", "$;!", "*|#"], True))
+#print(rotate("$$$$$***   ....\n#&&&&(,,/  ##))\n**   ****./,///", 270))
+
+#$$$$$***   ....
+#&&&&(,,/ ##))
+#**   ****./,///
