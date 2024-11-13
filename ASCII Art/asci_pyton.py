@@ -11,17 +11,26 @@ def rotate(image: str, degrees: int):
     if degrees == 0:
         return image
     if degrees == 90:
+
+        #turn the string to a matrix
         cur_matrix = [list(line) for line in image.splitlines()]
         cols = len(cur_matrix[0])
         rows = len(cur_matrix)
+
+        # open a new (empty) matrix in the opposite rows and columns
         end_matrix = [[None for _ in range(rows)] for _ in range(cols)]
+
+        # add to the end_matrix in a 90 degree rotation
         for col in range(cols):
             for row in range(rows):
                 end_matrix[col][row] = cur_matrix[row][cols-1-col]
+
+        #convert the matrix back to a string
         end_str = "\n".join("".join(line) for line in end_matrix)
+
         return end_str
     elif degrees == 180:
-        return image[::-1].strip()
+        return image[::-1].strip()                  # in case of
     elif degrees == 270:
         end180str = rotate(image, 180)
         return rotate(end180str, 90)
