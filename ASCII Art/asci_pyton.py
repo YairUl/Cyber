@@ -111,7 +111,7 @@ def deserialize(string, rotation, conv_choice, conversion_table, to_print=False)
 #print(serialize("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", 0, 0, ["(^$", "$;!", "*|#"], True))
 #print(deserialize("5$3*3 4.\n5&1(2,1/2 2#2)\n2*3 4*1.1/1,3/", 270, 0, ["(^$", "$;!", "*|#"], True))
 #print(rotate("$$$$$***   ....\n#&&&&(,,/  ##))\n**   ****./,///", 270))
-
+#
 #$$$$$***   ....
 #&&&&(,,/ ##))
 #**   ****./,///
