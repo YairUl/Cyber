@@ -1,7 +1,3 @@
-#   $$$$$***   ....  /n
-#    &&&&&(,,/ ##))   /n
-#    **   ****./,///
-
 def read_file(file_path):
     with open(file_path, "r") as file:
         return file.read()
@@ -43,7 +39,7 @@ def rotate(image: str, degrees: int):
             end360str += "\n"
         return end360str.strip("\n")
 
-    else: rotate(image, int(input("please enter a valid number")))
+    else: raise ValueError
 
 
 
@@ -109,19 +105,3 @@ def deserialize(string, rotation, conv_choice, conversion_table, to_print=False)
     with open("deserialize.txt", "w") as file:
         file.write(converted_str)
     return "deserialize.txt"
-
-
-
-
-
-
-
-#print(rotate("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", 90))
-#print(convert("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", ["(^$", "$;!", "*|#"], 1))
-#print(serialize("$$$$$***   ....\n&&&&&(,,/  ##))\n**   ****./,///", 0, 0, ["(^$", "$;!", "*|#"], True))
-#print(deserialize("5$3*3 4.\n5&1(2,1/2 2#2)\n2*3 4*1.1/1,3/", 270, 0, ["(^$", "$;!", "*|#"], True))
-#print(rotate("$$$$$***   ....\n#&&&&(,,/  ##))\n**   ****./,///", 270))
-#
-#$$$$$***   ....
-#&&&&(,,/ ##))
-#**   ****./,///
