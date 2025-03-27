@@ -7,41 +7,112 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
         .container {
-            max-width: 600px;
-            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .messages-box {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
         button {
-            padding: 10px 20px;
-            background-color: red;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: darkred;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Welcome to the Messages Page!</h1>
-        <p>This is where your messaging system will go.</p>
-        <button id="logoutBtn">Logout</button>
+        <h2>Messages</h2>
+
+        <div class="messages-box" id="messagesBox">
+            <!-- Messages will be loaded here -->
+        </div>
+
+        <h3>Send Message</h3>
+        <form id="messageForm">
+            <div class="form-group">
+                <input type="number" id="recipientId" placeholder="Recipient ID" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="messageText" placeholder="Type your message..." required>
+            </div>
+            <button type="submit">Send</button>
+        </form>
     </div>
 
     <script>
-        document.getElementById("logoutBtn").addEventListener("click", function() {
-            fetch("/logout", { method: "POST" })
+        function loadMessages() {
+            fetch('/messages')
                 .then(response => response.json())
                 .then(data => {
-                    alert(data.message);
-                    window.location.href = data.redirect;  // Redirect after logout
-                });
+                    const messagesBox = document.getElementById('messagesBox');
+                    messagesBox.innerHTML = "";
+                    data.forEach(msg => {
+                        messagesBox.innerHTML += `<p><strong>${msg.sender}:</strong> ${msg.text}</p>`;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const recipient_id = document.getElementById('recipientId').value;
+            const text = document.getElementById('messageText').value;
+
+            fetch('/send_message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ recipient_id, text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                loadMessages();  // Refresh messages after sending
+            })
+            .catch(error => console.error('Error:', error));
         });
+
+        loadMessages();  // Load messages when page opens
     </script>
+
 </body>
 </html>
